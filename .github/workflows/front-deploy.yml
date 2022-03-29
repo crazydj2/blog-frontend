@@ -15,4 +15,4 @@ jobs:
         run: yarn build
 
       - name: cp
-        run: cp -r ./build/* /home/opc/...
+        run: cp -r ./public/* /home/opc/blog-front/
