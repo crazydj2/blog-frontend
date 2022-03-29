@@ -3,7 +3,7 @@ on:
   push:
     branches: [ master ]
 jobs:
-  api-server-deploy:
+  frontend-deploy:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
