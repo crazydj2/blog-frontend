@@ -14,5 +14,9 @@ jobs:
       - name: yarn build
         run: yarn build
 
+      - name: remove
+        run: rm -rf ./*
+        working-directory: /usr/share/nginx/blog-front/
+
       - name: cp
         run: cp -r ./public/* /usr/share/nginx/blog-front/
