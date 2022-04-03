@@ -24,7 +24,7 @@ const server = http.createServer((request, response) => {
   let resFilePath = path.join(__dirname, './public');
   let resMimeType = mimeType[ext];
 
-  // html 파일이거나, 혹은 파일명이 아닌 url 인 경우, -> 타겟 html (혹은 inde.html) 리턴
+  // 확장자가 없다 --> url 이라 간주하고, url 인 경우에는 index.html 리턴하도록 처리
   if (!resMimeType) {
     resFilePath += '/index.html';
     resMimeType = 'text/html';
