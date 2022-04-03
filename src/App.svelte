@@ -1,11 +1,16 @@
 <script>
-	export let name;
+	import Router from 'svelte-spa-router';
+    import routes from './routes/routes';
+
+	let name = 'test';
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
-	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<br />
+
+	<Router {routes} />
 </main>
 
 <style>
