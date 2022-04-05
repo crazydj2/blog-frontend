@@ -1,34 +1,32 @@
-<script>
-	import Router from 'svelte-spa-router';
-    import routes from './routes/routes';
+<svelte:head>
+	<!-- https://sveltematerialui.com/REPL.md -->
 
-	let name = 'test';
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono" />
+
+	<!-- Material Typography -->
+	<link rel="stylesheet" href="https://unpkg.com/@material/typography@13.0.0/dist/mdc.typography.css" />
+
+	<!-- SMUI -->
+	<link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
+
+	<!-- SMUI Styles -->
+	<link rel="stylesheet" href="/build/smui.css" media="(prefers-color-scheme: light)" />
+	<link rel="stylesheet" href="/build/smui-dark.css" media="screen and (prefers-color-scheme: dark)" />
+</svelte:head>
+
+<script>
+	import Header from './view/Header.svelte';
+	import Main from './view/Main.svelte';
+	import Footer from './view/Footer.svelte';
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<br />
+<div>
+	<Header></Header>
 
-	<Router {routes} />
-</main>
+	<Main></Main>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+	<Footer></Footer>
+</div>

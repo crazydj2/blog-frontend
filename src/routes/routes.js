@@ -1,11 +1,11 @@
 import { wrap } from 'svelte-spa-router/wrap'
 
 const routes = {
-  '/': wrap({
-    asyncComponent: () => import('../view/TestView.svelte')
+  '/admin/menu': wrap({ 
+    asyncComponent: () => import('../view/main/AdminMenu.svelte')
   }),
-  '/test2': wrap({
-    asyncComponent: () => import('../view/TestView2.svelte')
+  '/admin/article': wrap({
+    asyncComponent: () => import('../view/main/AdminArticle.svelte')
   }),
 }
   
