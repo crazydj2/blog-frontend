@@ -20,13 +20,18 @@
 <script>
 	import Header from './view/Header.svelte';
 	import Main from './view/Main.svelte';
-	import Footer from './view/Footer.svelte';
 </script>
 
-<div>
+<div class='dj-blog-app'>
 	<Header></Header>
 
 	<Main></Main>
-
-	<Footer></Footer>
 </div>
+
+<style>
+	.dj-blog-app {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+</style>

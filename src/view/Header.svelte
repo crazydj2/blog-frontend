@@ -1,79 +1,35 @@
 
+
+<TopAppBar variant="static">
+	<Row>
+		<Section>
+			<IconButton class="material-icons blog-header-menu" on:click={ onClick }>menu</IconButton>
+			<Title>DJ's Blog Header</Title>
+		</Section>
+		<Section align="end" toolbar>
+			<IconButton href="https://github.com/crazydj2/blog-frontend" target="_blank"><Github /></IconButton>
+		</Section>
+	</Row>
+</TopAppBar>
   
-  <div class="flexy">
-	<div class="top-app-bar-container flexor">
-	  <TopAppBar
-		variant="static"
-		{prominent}
-		{dense}
-		color={secondaryColor ? 'secondary' : 'primary'}
-	  >
-		<Row>
-		  <Section>
-			<IconButton class="material-icons">menu</IconButton>
-			<Title>Flex Static</Title>
-		  </Section>
-		  <Section align="end" toolbar>
-			<IconButton class="material-icons" aria-label="Download"
-			  >file_download</IconButton
-			>
-			<IconButton class="material-icons" aria-label="Print this page"
-			  >print</IconButton
-			>
-			<IconButton class="material-icons" aria-label="Bookmark this page"
-			  >bookmark</IconButton
-			>
-		  </Section>
-		</Row>
-	  </TopAppBar>
-	  <div class="flexor-content">
-		<img
-		  alt="Page content placeholder"
-		  src="/page-content.jpg"
-		  style="display: block; max-width: 100%; height: auto; margin: 1em auto;"
-		/>
-	  </div>
-	</div>
-  </div>
-  
-  <script lang="ts">
+<script>
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
+	import Github from "svelte-material-icons/Github.svelte";
 	
-	let prominent = false;
-	let dense = false;
-	let secondaryColor = false;
-  </script>
-  
-  <style>
-	.top-app-bar-container {
-	  max-width: 480px;
-	  width: 100%;
-	  height: 320px;
-	  border: 1px solid
-		var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
-	  margin: 0 18px 18px 0;
-	  background-color: var(--mdc-theme-background, #fff);
-	  overflow: auto;
-	  display: inline-block;
+	const onClick = () => {
+		alert('click......');
+	};
+</script>
+
+<style>
+	:global(.blog-header-menu) {
+		display: none;
 	}
+
 	@media (max-width: 480px) {
-	  .top-app-bar-container {
-		margin-right: 0;
-	  }
+		:global(.blog-header-menu) {
+			display: flex;
+		}
 	}
-	.flexy {
-	  display: flex;
-	  flex-wrap: wrap;
-	}
-	.flexor {
-	  display: inline-flex;
-	  flex-direction: column;
-	}
-	.flexor-content {
-	  flex-basis: 0;
-	  height: 0;
-	  flex-grow: 1;
-	  overflow: auto;
-	}
-  </style>
+</style>
