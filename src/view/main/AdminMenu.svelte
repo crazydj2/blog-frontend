@@ -53,6 +53,8 @@
 
 	import MenuSelect from './MenuSelect.svelte';
 
+	import { getMenu, postMenu, patchMenu, deleteMenu } from '../../api/api.js';
+
 	// temp data
 	// const menus = [
 	// 	{name: 'menu 1', _id: 'menu 1'},
@@ -123,7 +125,20 @@
 		}
 	};
 
-	const addMenu = () => {
+	const addMenu = async () => {
+		// await getMenu();
+
+		// await postMenu({name: 'dj test ing~~~'});
+
+		// await patchMenu({
+		// 	query: { _id: '6260ff87c6dbd94a1411a90f' },
+		// 	data: {
+		// 		name: 'fuck you!!!!!!'
+		// 	}
+		// });
+
+		// await deleteMenu({ _id: '6260ff87c6dbd94a1411a90f' });
+
 		alert('데이터 유효성 체크 후 ajax 콜');
 	};
 </script>
