@@ -7,7 +7,7 @@
 			<div class="card-content-container">
 				{#each parents as parent, i}
 				<div>
-					<MenuSelect menus={parent.list} depth={i} change={changeParent}></MenuSelect>
+					<MenuSelect menus={parent.list} depth={i} on:change={changeParent} initTime={parents.initTime}></MenuSelect>
 				</div>
 				{/each}
 			</div>
@@ -55,26 +55,9 @@
 
 	import { getMenu, postMenu, patchMenu, deleteMenu } from '../../api/api.js';
 
-	// temp data
-	// const menus = [
-	// 	{name: 'menu 1', _id: 'menu 1'},
-	// 	{name: 'menu 2', _id: 'menu 2', children: [
-	// 		{name: 'menu 2 1', _id: 'menu 2 1', parent: 'menu 2'},
-	// 		{name: 'menu 2 2', _id: 'menu 2 2', parent: 'menu 2'},
-	// 		{name: 'menu 2 3', _id: 'menu 2 3', parent: 'menu 2', children: [
-	// 			{name: 'menu 2 3 1', _id: 'menu 2 3 1', parent: 'menu 2 3'},
-	// 			{name: 'menu 2 3 2', _id: 'menu 2 3 2', parent: 'menu 2 3'},
-	// 			{name: 'menu 2 3 3', _id: 'menu 2 3 3', parent: 'menu 2 3', children: [
-	// 				{name: 'menu 2 3 3 1', _id: 'menu 2 3 3 1', parent: 'menu 2 3 3'},
-	// 				{name: 'menu 2 3 3 2', _id: 'menu 2 3 3 2', parent: 'menu 2 3 3'},
-	// 				{name: 'menu 2 3 3 3', _id: 'menu 2 3 3 3', parent: 'menu 2 3 3'},
-	// 			]},
-	// 		]},
-	// 	]},
-	// 	{name: 'menu 3', _id: 'menu 3'},
-	// ];
+	import menu from '../../store/menu.js';
 
-	// let parents = [{list: menus, select: null}];
+	let menus = [];
 	let parents = [];
 
 	let name = '';
@@ -100,13 +83,17 @@
 		return str;
 	};
 
-	const changeParent = (value, depth) => {
+	const changeParent = (event) => {
+		const { value, depth } = event.detail;
+
 		if (!value) {
 			return;
 		}
 
-		parents = parents.slice(0, depth + 1);
+		const initTime = parents.initTime;
 
+		parents = parents.slice(0, depth + 1);
+		parents.initTime = initTime;
 		parents[depth].select = value;
 
 		if (value.children && value.children.length > 0) {
@@ -116,8 +103,9 @@
 	};
 
 	const init = value => {
-		if (value === 'parent' && parents.length > 0) {
+		if (value === 'parent') {
 			parents = [{list: menus, select: null}];
+			parents.initTime = (new Date()).getTime();
 		}
 
 		if (value === 'info') {
@@ -125,21 +113,35 @@
 		}
 	};
 
+	menu.subscribe(value => {
+		menus = value;
+		init('parent');
+	});
+
 	const addMenu = async () => {
-		// await getMenu();
+		if (!name) {
+			alert('메뉴명 입력하숑~');
+			return;
+		}
 
-		// await postMenu({name: 'dj test ing~~~'});
+		let parent = null;
 
-		// await patchMenu({
-		// 	query: { _id: '6260ff87c6dbd94a1411a90f' },
-		// 	data: {
-		// 		name: 'fuck you!!!!!!'
-		// 	}
-		// });
+		for (let i = parents.length - 1; i >= 0; i--) {
+			if (!!parents[i].select?._id) {
+				parent = parents[i].select._id;
+			}
+		}
+		
+		const response = await postMenu({name, parent});
 
-		// await deleteMenu({ _id: '6260ff87c6dbd94a1411a90f' });
-
-		alert('데이터 유효성 체크 후 ajax 콜');
+		if (response?.success) {
+			alert(`${name} 메뉴 생성에 성공하였습니다.`);
+			
+			menu.reset();
+			name = '';
+		} else {
+			alert(`${name} 메뉴 생성에 실패하였습니다.`);
+		}
 	};
 </script>
 

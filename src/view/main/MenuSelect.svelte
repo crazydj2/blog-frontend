@@ -7,14 +7,27 @@
 
 <script>
 	import Select, { Option } from '@smui/select';
-
-	export let menus;
+	import { createEventDispatcher } from 'svelte';
 
 	export let depth;
+	export let menus;
 
-	export let change;
+	// value reset 용
+	export let initTime;
 
 	let value;
 
-	$: change(value, depth);
+	const dispatch = createEventDispatcher();
+
+	const changeValue = () => {
+		dispatch('change', { value, depth });
+	};
+
+	const resetValue = () => {
+		value = undefined;
+	};
+
+	$: changeValue(value);
+
+	$: resetValue(initTime);
 </script>

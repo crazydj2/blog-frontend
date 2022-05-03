@@ -20,6 +20,12 @@
 <script>
 	import Header from './view/Header.svelte';
 	import Main from './view/Main.svelte';
+	import { onMount } from 'svelte';
+	import { initStore } from './store/store.js';
+
+	onMount(() => {
+		initStore();
+	});
 </script>
 
 <div class='dj-blog-app'>

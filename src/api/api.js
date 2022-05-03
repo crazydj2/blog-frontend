@@ -24,14 +24,14 @@ const fetchWrap = async (options) => {
     const { url, method, query, body, headers } = options;
 
     try {
-        return await fetch(`${address + url}?${getQueryString(query)}`, {
+        return (await fetch(`${address + url}?${getQueryString(query)}`, {
             method,
             headers: {
                 'Content-Type': 'application/json',
                 ...headers
             },
             body: JSON.stringify(body)
-        });
+        })).json();
     } catch (e) {
         console.error(e);
     }
