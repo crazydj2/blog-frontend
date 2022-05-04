@@ -57,7 +57,6 @@
 
 	import menu from '../../store/menu.js';
 
-	let menus = [];
 	let parents = [];
 
 	let name = '';
@@ -104,7 +103,7 @@
 
 	const init = value => {
 		if (value === 'parent') {
-			parents = [{list: menus, select: null}];
+			parents = [{list: $menu, select: null}];
 			parents.initTime = (new Date()).getTime();
 		}
 
@@ -114,7 +113,6 @@
 	};
 
 	menu.subscribe(value => {
-		menus = value;
 		init('parent');
 	});
 
