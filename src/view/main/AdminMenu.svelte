@@ -127,6 +127,7 @@
 		for (let i = parents.length - 1; i >= 0; i--) {
 			if (!!parents[i].select?._id) {
 				parent = parents[i].select._id;
+				break;
 			}
 		}
 		
