@@ -1,5 +1,5 @@
 <div class="blog-drawer-container">
-	<Aside bind:open={open}></Aside>
+	<Aside></Aside>
 
 	<AppContent class="app-content">
 		<main class="main-content">
@@ -15,8 +15,6 @@
 	import { AppContent } from '@smui/drawer';
 
 	import Aside from './main/Aside.svelte';
-
-	let open = false;
 </script>
 
 <style>

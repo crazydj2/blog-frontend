@@ -16,9 +16,10 @@
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
 	import Github from "svelte-material-icons/Github.svelte";
+	import asideOpen from '../store/aside.js';
 	
 	const onClick = () => {
-		alert('click......');
+		asideOpen.update(open => !open);
 	};
 </script>
 
@@ -27,7 +28,7 @@
 		display: none;
 	}
 
-	@media (max-width: 480px) {
+	@media (max-width: 720px) {
 		:global(.blog-header-menu) {
 			display: flex;
 		}

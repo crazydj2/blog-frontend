@@ -1,9 +1,9 @@
 <!-- Don't include fixed={false} if this is a page wide drawer.
 	It adds a style for absolute positioning. -->
-<Drawer variant="static" fixed={false} bind:open>
+<Drawer variant={drawerVariant} fixed={false} bind:open={drawerOpen}>
 	<Header>
-		<Title>Super Mail</Title>
-		<Subtitle>It's the best fake mail app drawer.</Subtitle>
+		<Title>여기에는 과연 뭘 추가할 수 있을까???</Title>
+		<Subtitle>여기에는 과연 뭘 추가할 수 있을까???</Subtitle>
 	</Header>
 	<Content>
 		<List>
@@ -25,17 +25,36 @@
 	It adds a style for absolute positioning. -->
 <Scrim fixed={false} />
 
+<svelte:window bind:innerWidth={innerWidth}/>
+
 <script>
 	import Drawer, { Content, Header, Title, Subtitle, Scrim } from '@smui/drawer';
 	import List, { Item, Text, Graphic, Separator } from '@smui/list';
+	import asideOpen from '../../store/aside.js';
 
-	export let open;
+	let innerWidth;
 
-	
+	let drawerVariant = 'static';
+	let drawerOpen = false;
+
 	let active = 'keyboard_arrow_right';
 
 	const setActive = value => {
 		active = value;
-		open = false;
 	};
+
+	const setVisible = () => {
+		if (innerWidth > 720) {
+			drawerVariant = 'static';
+			asideOpen.update(open => false);
+		} else {
+			drawerVariant = 'modal';
+		}
+	};
+
+	asideOpen.subscribe(value => {
+		drawerOpen = value;
+	});
+	
+	$: setVisible(innerWidth);
 </script>
