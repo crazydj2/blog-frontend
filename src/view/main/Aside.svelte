@@ -4,6 +4,7 @@
 	<Header>
 		<Title>여기에는 과연 뭘 추가할 수 있을까???</Title>
 		<Subtitle>여기에는 과연 뭘 추가할 수 있을까???</Subtitle>
+		<Subtitle>여기에는 과연 뭘 추가할 수 있을까???</Subtitle>
 	</Header>
 	<Content>
 		<List>
