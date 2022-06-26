@@ -28,7 +28,7 @@
 		display: none;
 	}
 
-	@media (max-width: 720px) {
+	@media (max-width: 480px) {
 		:global(.blog-header-menu) {
 			display: flex;
 		}

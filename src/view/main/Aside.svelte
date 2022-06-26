@@ -167,7 +167,7 @@
 	
 
 	const setVisible = () => {
-		if (innerWidth > 720) {
+		if (innerWidth > 480) {
 			drawerVariant = 'static';
 			asideOpen.update(open => false);
 		} else {
