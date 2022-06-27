@@ -84,32 +84,6 @@
 		}
 	};
 	
-	const setMenus = (init = false) => {
-		if ($location.includes('/admin/')) {
-			active = '';
-			return;
-		}
-
-		const arrCurrent = getMenusByUrl();
-		const current = arrCurrent[arrCurrent.length - 1];
-
-		if (!current) {
-			return;
-		}
-		
-		setFlatMenus(arrCurrent);
-
-		if (active === current._id) {
-			if (!current.open) {}
-		}
-
-		if (!init) {
-			toggleChildren();
-		}
-
-		active = current._id;
-	};
-
 	const addChildrenOnMenus = current => {
 		menus = menus.flatMap(m => {
 			if (m._id === current._id) {
@@ -152,9 +126,36 @@
 		}
 	}
 
+	const setMenus = (init = false) => {
+		if ($location.includes('/admin/')) {
+			active = '';
+			return;
+		}
+
+		const arrCurrent = getMenusByUrl();
+		const current = arrCurrent[arrCurrent.length - 1];
+
+		if (!current) {
+			return;
+		}
+		
+		setFlatMenus(arrCurrent);
+
+		if (active === current._id) {
+			if (!current.open) {}
+		}
+
+		if (!init) {
+			toggleChildren();
+		}
+
+		active = current._id;
+	};
+
 	menu.subscribe(value => {
 		menus = value.map(v => {
 			v.depth = 0;
+			v.open = false;
 			return v;
 		});
 
