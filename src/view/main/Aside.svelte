@@ -181,9 +181,3 @@
 	
 	$: setVisible(innerWidth);
 </script>
-
-<style>
-	:global(.menu-icons-aside-menu) {
-		margin-right: 10px;
-	}
-</style>
