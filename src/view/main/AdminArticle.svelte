@@ -28,7 +28,7 @@
 
 	import AdminMenuSelectContainer from '../child/AdminMenuSelectContainer.svelte';
 
-	let parent = [];
+	let parent = null;
 
 	const chageParent = e => {
 		parent = e.detail.parent;
