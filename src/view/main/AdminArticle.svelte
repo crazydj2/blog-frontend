@@ -45,7 +45,7 @@
 	};
 
 	const addArticle = () => {
-		if (!parent || parent.children.length > 0) {
+		if (parent?.children?.length > 0) {
 			alert('가장 깊은 자식 메뉴를 선택해 주세요...');
 			return;
 		}
