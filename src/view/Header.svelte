@@ -3,8 +3,8 @@
 <TopAppBar variant="static">
 	<Row>
 		<Section>
-			<IconButton class="material-icons blog-header-menu" on:click={ onClick }>menu</IconButton>
-			<Title>DJ's Blog Header</Title>
+			<IconButton class="material-icons blog-header-menu" on:click={ openAside }>menu</IconButton>
+			<Title style="cursor: pointer;" on:click={ goRoot }>DJ's Blog Header</Title>
 		</Section>
 		<Section align="end" toolbar>
 			<IconButton href="https://github.com/crazydj2/blog-frontend" target="_blank"><Github /></IconButton>
@@ -17,8 +17,13 @@
 	import IconButton from '@smui/icon-button';
 	import Github from "svelte-material-icons/Github.svelte";
 	import asideOpen from '../store/aside.js';
+	import { push } from 'svelte-spa-router';
+
+	const goRoot = () => {
+		push('/');
+	};
 	
-	const onClick = () => {
+	const openAside = () => {
 		asideOpen.update(open => !open);
 	};
 </script>
@@ -33,4 +38,6 @@
 			display: flex;
 		}
 	}
+
+
 </style>
