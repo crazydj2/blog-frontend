@@ -8,6 +8,15 @@
 </div>
 
 <div class="card-container">
+	<h3>글 내용 입력</h3>
+	<Card variant="outlined">
+		<Content>
+			<h3>여기에 에디터 추가 (summernote? toast ui?)</h3>
+		</Content>
+	</Card>
+</div>
+
+<div class="card-container">
 	<Button color="secondary" on:click={ addArticle } variant="raised"><Label>글 추가</Label></Button>
 	<Button color="secondary" on:click={ () => push("/admin/menu") } variant="raised"><Label>메뉴 추가로 이동</Label></Button>
 </div>
@@ -15,7 +24,7 @@
 <script>
     import { push } from 'svelte-spa-router';
 	import Button, { Label } from '@smui/button';
-	import Card from '@smui/card';
+	import Card, { Content } from '@smui/card';
 
 	import AdminMenuSelectContainer from '../child/AdminMenuSelectContainer.svelte';
 
