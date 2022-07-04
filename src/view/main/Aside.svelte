@@ -26,7 +26,7 @@
 	import Drawer, { Content, Header, Title, Subtitle, Scrim } from '@smui/drawer';
 	import List from '@smui/list';
 
-	import MenuItem from './MenuItem.svelte';
+	import MenuItem from '../child/MenuItem.svelte';
 	
 	import asideOpen from '../../store/aside.js';
 	import menu from '../../store/menu.js';

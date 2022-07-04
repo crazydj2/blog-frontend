@@ -51,7 +51,7 @@
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
 
-	import MenuSelect from './MenuSelect.svelte';
+	import MenuSelect from '../child/MenuSelect.svelte';
 
 	import { getMenu, postMenu, patchMenu, deleteMenu } from '../../api/api.js';
 
