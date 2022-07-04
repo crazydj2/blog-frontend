@@ -1,21 +1,9 @@
 <h1>글 추가</h1>
 
 <div class="card-container">
-	<h3>메뉴 선택</h3>
+	<h3>부모 메뉴 선택</h3>
 	<Card variant="outlined">
-		<Content>
-			<div class="card-content-container">
-				{#each parents as parent, i}
-				<div>
-					<MenuSelect menus={parent.list} depth={i} on:change={changeParent} initTime={parents.initTime}></MenuSelect>
-				</div>
-				{/each}
-			</div>
-			<pre class="status"><h2>선택된 부모 메뉴 : { selectedParents() }</h2></pre>
-		</Content>
-		<Actions>
-			<Button on:click={ () => init("parent") } variant="raised"><Label>초기화</Label></Button>
-		</Actions>
+		<AdminMenuSelectContainer on:change={chageParent}></AdminMenuSelectContainer>
 	</Card>
 </div>
 
@@ -27,72 +15,28 @@
 <script>
     import { push } from 'svelte-spa-router';
 	import Button, { Label } from '@smui/button';
-	import Card, { Content, Actions } from '@smui/card';
+	import Card from '@smui/card';
 
-	import MenuSelect from '../child/MenuSelect.svelte';
+	import AdminMenuSelectContainer from '../child/AdminMenuSelectContainer.svelte';
 
-	import menu from '../../store/menu.js';
+	let parent = [];
 
-	let parents = [];
-
-	$: selectedParents = () => {
-		let str = '';
-		parents.map(parent => {
-			if (!parent.select || !parent.select.name) {
-				return;
-			}
-
-			if (str) {
-				str += ' > ';
-			}
-
-			str += parent.select.name;
-		});
-
-		if (!str) {
-			str = '없음';
-		}
-
-		return str;
+	const chageParent = e => {
+		parent = e.detail.parent;
 	};
 
-	const changeParent = (event) => {
-		const { value, depth } = event.detail;
-
-		if (!value) {
+	const addArticle = () => {
+		if (!parent) {
+			alert('메뉴를 선택해 주세요...');
 			return;
 		}
 
-		const initTime = parents.initTime;
-
-		parents = parents.slice(0, depth + 1);
-		parents.initTime = initTime;
-		parents[depth].select = value;
-
-		if (value.children && value.children.length > 0) {
-			parents.push({list: [...value.children], select: null});
-		}
-		
-	};
-
-	const init = value => {
-		if (value === 'parent') {
-			parents = [{list: $menu, select: null}];
-			parents.initTime = (new Date()).getTime();
-		}
-
-		if (value === 'info') {
-			name = '';
-		}
-	};
-
-	menu.subscribe(value => {
-		init('parent');
-	});
-
-	const addArticle = () => {
-		alert('잇힝~');
+		alert(`'잇힝~' ${parent}`);
 	}
 </script>
 
-
+<style>
+	.card-container {
+		margin-bottom: 40px;
+	}
+</style>
