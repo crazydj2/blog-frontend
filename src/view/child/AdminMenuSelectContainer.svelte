@@ -85,6 +85,10 @@
 	menu.subscribe(value => {
 		init();
 	});
+
+	export function reset() {
+		init();
+	}
 </script>
 
 <style>

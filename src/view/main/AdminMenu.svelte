@@ -37,7 +37,7 @@
 
 	import AdminMenuSelectContainer from '../child/AdminMenuSelectContainer.svelte';
 
-	import { postMenu } from '../../api/api.js';
+	import { postMenu } from '../../api/menu.js';
 
 	import menu from '../../store/menu.js';
 

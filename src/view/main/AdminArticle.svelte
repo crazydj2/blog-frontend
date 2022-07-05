@@ -3,7 +3,7 @@
 <div class="card-container">
 	<h3>부모 메뉴 선택</h3>
 	<Card variant="outlined">
-		<AdminMenuSelectContainer on:change={chageParent}></AdminMenuSelectContainer>
+		<AdminMenuSelectContainer bind:this={adminMenuSelectContainer} on:change={chageParent}></AdminMenuSelectContainer>
 	</Card>
 </div>
 
@@ -16,7 +16,7 @@
 			</Textfield>
 
 			<h4>본문</h4>
-			<ToastUIEditor></ToastUIEditor>
+			<ToastUIEditor bind:this={editor}></ToastUIEditor>
 		</Content>
 	</Card>
 </div>
@@ -34,19 +34,24 @@
 	import HelperText from '@smui/textfield/helper-text';
 
 	import AdminMenuSelectContainer from '../child/AdminMenuSelectContainer.svelte';
-	import ToastUIEditor, { getHTML } from '../external-wrapper/ToastUIEditor.svelte';
+	import ToastUIEditor from '../external-wrapper/ToastUIEditor.svelte';
+
+	import { postArticle } from '../../api/article.js';
 
 	let parent = null;
 
 	let title = '';
 
+	let editor;
+	let adminMenuSelectContainer;
+
 	const chageParent = e => {
 		parent = e.detail.parent;
 	};
 
-	const addArticle = () => {
-		if (parent?.children?.length > 0) {
-			alert('가장 깊은 자식 메뉴를 선택해 주세요...');
+	const addArticle = async () => {
+		if (!parent) {
+			alert('메뉴를 선택해 주세요...');
 			return;
 		}
 
@@ -55,14 +60,29 @@
 			return;
 		}
 
-		const content = getHTML();
+		const contents = editor.getHTML();
 
-		if (!content) {
+		if (!contents) {
 			alert('본문을 입력해주세요...');
 			return;
 		}
 
-		alert(`'잇힝~' ${parent} ${getHTML()}`);
+		const response = await postArticle({
+			title,
+			contents,
+			parent
+		});
+
+		if (response?.success) {
+			alert(`${title} article 생성에 성공하였습니다.`);
+			
+			title = '';
+
+			editor.reset();
+			adminMenuSelectContainer.reset();
+		} else {
+			alert(`${title} article 생성에 실패하였습니다.`);
+		}
 	}
 </script>
 

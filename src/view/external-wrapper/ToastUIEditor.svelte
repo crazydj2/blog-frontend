@@ -1,20 +1,13 @@
 <div bind:this={editor} ></div>
 
-<script context="module">
-	let editorInstance;
-
-	export function getHTML() {
-		editorInstance.setMarkdown(editorInstance.getMarkdown().trim());
-		return editorInstance.getHTML();
-	}
-</script>
-
 <script>
 	import { onMount } from 'svelte';
 	import '@toast-ui/editor/dist/toastui-editor.css';
 	import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 	import Editor from '@toast-ui/editor';
+
+	let editorInstance;
 	
 	let editor;
 
@@ -28,6 +21,15 @@
 			hideModeSwitch: true
 		});
 	});
+
+	export function getHTML() {
+		editorInstance.setMarkdown(editorInstance.getMarkdown().trim());
+		return editorInstance.getHTML();
+	}
+
+	export function reset() {
+		editorInstance.reset();
+	}
 </script>
 
 <style>
