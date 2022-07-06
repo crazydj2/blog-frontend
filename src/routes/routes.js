@@ -7,6 +7,9 @@ const routes = {
   '/admin/article': wrap({
     asyncComponent: () => import('../view/main/AdminArticle.svelte')
   }),
+  '/*': wrap({ 
+    asyncComponent: () => import('../view/main/MainContent.svelte')
+  }),
 }
   
 export default routes;
