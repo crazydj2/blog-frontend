@@ -67,6 +67,10 @@
 			return;
 		}
 
+		console.log(contents);
+
+		return;
+
 		const response = await postArticle({
 			title,
 			contents,
