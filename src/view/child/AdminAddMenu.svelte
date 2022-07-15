@@ -51,12 +51,12 @@
 		const response = await postMenu({name, parent});
 
 		if (response?.success) {
-			alert(`${name} 메뉴 생성에 성공하였습니다.`);
+			alert(`"${name}" 메뉴 생성에 성공하였습니다.`);
 			
 			menu.reset();
 			name = '';
 		} else {
-			alert(`${name} 메뉴 생성에 실패하였습니다.`);
+			alert(`"${name}" 메뉴 생성에 실패하였습니다.`);
 		}
 	};
 </script>

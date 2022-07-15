@@ -31,16 +31,20 @@
 			alert('메뉴 선택하숑~');
 			return;
 		}
+
+		if (!confirm(`"${target.name}" 메뉴에 딸린 모든 메뉴와 글도 다 삭제됩니다. 그래도 삭제 ㄱㄱ???`)) {
+			return;
+		}
 		
 		// const response = await deleteMenu({name, parent});
 
 		// if (response?.success) {
-		// 	alert(`${target.name} 메뉴 삭제에 성공하였습니다.`);
+		// 	alert(`"${target.name}" 메뉴 삭제에 성공하였습니다.`);
 			
 		// 	menu.reset();
 		// 	name = '';
 		// } else {
-		// 	alert(`${name} 메뉴 삭제에 실패하였습니다.`);
+		// 	alert(`"${name}" 메뉴 삭제에 실패하였습니다.`);
 		// }
 	};
 </script>
