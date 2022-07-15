@@ -2,11 +2,8 @@ import { wrap } from 'svelte-spa-router/wrap'
 
 const routes = new Map();
 
-routes.set('/admin/menu', wrap({ 
-  asyncComponent: () => import('../view/main/AdminMenu.svelte')
-}));
-routes.set('/admin/article', wrap({ 
-  asyncComponent: () => import('../view/main/AdminArticle.svelte')
+routes.set('/admin', wrap({ 
+  asyncComponent: () => import('../view/main/Admin.svelte')
 }));
 
 // Home 화면

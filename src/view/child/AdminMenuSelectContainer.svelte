@@ -1,19 +1,14 @@
-<Content>
-	<div class="card-content-container">
-		{#each parents as parent, i}
-		<div>
-			<MenuSelect menus={parent.list} depth={i} on:change={changeParent} initTime={parents.initTime}></MenuSelect>
-		</div>
-		{/each}
+<div class="card-content-container">
+	{#each parents as parent, i}
+	<div>
+		<MenuSelect menus={parent.list} depth={i} on:change={changeParent} initTime={parents.initTime}></MenuSelect>
 	</div>
-	<pre><h2>선택된 부모 메뉴 : { selectedParents() }</h2></pre>
-</Content>
-<Actions>
-	<Button on:click={ init } variant="raised"><Label>초기화</Label></Button>
-</Actions>
+	{/each}
+</div>
+<pre><h2>선택된 메뉴 : { selectedParents() }</h2></pre>
+<Button on:click={ init } variant="raised"><Label>초기화</Label></Button>
 
 <script>
-	import { Content, Actions } from '@smui/card';
 	import Button, { Label } from '@smui/button';
 	import { createEventDispatcher } from 'svelte';
 
@@ -47,16 +42,16 @@
 	};
 
 	$: {
-		let parent = null;
+		let select = null;
 
 		for (let i = parents.length - 1; i >= 0; i--) {
 			if (parents[i].select !== '선택 안함' && !!parents[i].select?._id) {
-				parent = parents[i].select._id;
+				select = parents[i].select._id;
 				break;
 			}
 		}
 
-		dispatch('change', { parent });
+		dispatch('change', { select });
 	}
 
 	const changeParent = (event) => {
