@@ -54,6 +54,8 @@
 	import AdminEditArticle from '../child/AdminEditArticle.svelte';
 	import AdminDeleteArticle from '../child/AdminDeleteArticle.svelte';
 
+	import { postAdmin } from '../../api/admin.js';
+
 	let mode = 'Auth';
 
 	let password = '';
@@ -61,7 +63,14 @@
 	const checkPassword = async () => {
 		// 비번 검증 후 오케이면 모드 변경
 
-		mode = 'Add Menu';
+		const response = await postAdmin({password});
+
+		if (response?.success) {
+			mode = 'Admin';
+		} else {
+			alert('비밀번호를 다시 입력해주세용~.');
+			password = '';
+		}
 	};
 
 	const components = {
