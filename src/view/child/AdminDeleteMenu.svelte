@@ -36,16 +36,16 @@
 			return;
 		}
 		
-		// const response = await deleteMenu({name, parent});
+		const response = await deleteMenu({_id: target._id});
 
-		// if (response?.success) {
-		// 	alert(`"${target.name}" 메뉴 삭제에 성공하였습니다.`);
+		if (response?.success) {
+			alert(`"${target.name}" 메뉴 삭제에 성공하였습니다.`);
 			
-		// 	menu.reset();
-		// 	name = '';
-		// } else {
-		// 	alert(`"${name}" 메뉴 삭제에 실패하였습니다.`);
-		// }
+			menu.reset();
+			name = '';
+		} else {
+			alert(`"${name}" 메뉴 삭제에 실패하였습니다.`);
+		}
 	};
 </script>
 

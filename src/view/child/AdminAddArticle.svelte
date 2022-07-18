@@ -63,7 +63,7 @@
 		const response = await postArticle({
 			title,
 			contents,
-			parent
+			parent: parent?._id
 		});
 
 		if (response?.success) {

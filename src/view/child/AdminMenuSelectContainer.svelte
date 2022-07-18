@@ -46,7 +46,7 @@
 
 		for (let i = parents.length - 1; i >= 0; i--) {
 			if (parents[i].select !== '선택 안함' && !!parents[i].select?._id) {
-				select = parents[i].select._id;
+				select = parents[i].select;
 				break;
 			}
 		}

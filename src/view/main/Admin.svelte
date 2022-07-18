@@ -55,6 +55,7 @@
 	import AdminDeleteArticle from '../child/AdminDeleteArticle.svelte';
 
 	import { postAdmin } from '../../api/admin.js';
+	import { getArticle } from '../../api/article.js';
 
 	let mode = 'Auth';
 
@@ -63,7 +64,15 @@
 	const checkPassword = async () => {
 		// 비번 검증 후 오케이면 모드 변경
 
-		const response = await postAdmin({password});
+		// const response = await postAdmin({password});
+
+		const response = await getArticle();
+
+		console.log(response);
+		mode = 'Admin';
+		return;
+
+
 
 		if (response?.success) {
 			mode = 'Admin';

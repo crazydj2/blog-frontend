@@ -8,7 +8,7 @@
 	<Textfield bind:value={name} label="메뉴명" required>
 		<HelperText slot="helper">메뉴명을 입력해주세용.</HelperText>
 	</Textfield>
-	<Button on:click={ () => initName } variant="raised"><Label>초기화</Label></Button>
+	<Button on:click={ initName } variant="raised"><Label>초기화</Label></Button>
 </Content>
 
 <Content>
@@ -48,7 +48,7 @@
 			return;
 		}
 		
-		const response = await postMenu({name, parent});
+		const response = await postMenu({name, parent: parent?._id});
 
 		if (response?.success) {
 			alert(`"${name}" 메뉴 생성에 성공하였습니다.`);

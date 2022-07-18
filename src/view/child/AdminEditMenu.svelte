@@ -8,7 +8,7 @@
 	<Textfield bind:value={name} label="메뉴명" required>
 		<HelperText slot="helper">메뉴명을 입력해주세용.</HelperText>
 	</Textfield>
-	<Button on:click={ () => initName } variant="raised"><Label>초기화</Label></Button>
+	<Button on:click={ initName } variant="raised"><Label>초기화</Label></Button>
 </Content>
 
 <Content>
@@ -30,7 +30,7 @@
 
 	import menu from '../../store/menu.js';
 
-	let parent = null;
+	let target = null;
 
 	let name = '';
 
@@ -39,20 +39,33 @@
 	};
 
 	const chageParent = e => {
-		parent = e.detail.select;
+		target = e.detail.select;
+
+		name = target?.name;
 	};
 
 	const addMenu = async () => {
-		if (!name) {
-			alert('메뉴명 입력하숑~');
+		if (!target) {
+			alert('메뉴를 선택해주세용~');
 			return;
 		}
 
-		alert('로직 완성시키삼');
+		if (!name) {
+			alert('메뉴명을 입력해 주세용~');
+			return;
+		}
 
-		return;
+		if (name === target.name) {
+			alert('같은 메뉴명입니다~.');
+			return;
+		}
+
+		const option = {
+			query: { _id: target._id },
+			data: { name }
+		}
 		
-		const response = await patchMenu({name, parent});
+		const response = await patchMenu(option);
 
 		if (response?.success) {
 			alert(`"${name}" 메뉴 수정에 성공하였습니다.`);
