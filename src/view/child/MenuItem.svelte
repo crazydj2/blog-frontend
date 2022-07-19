@@ -32,7 +32,7 @@
 			url = `/${temp.name}${url}`;
 		}
 
-		if ($location === url) {
+		if (decodeURIComponent($location) === url) {
 			if (menu.children.length > 0) {
 				dispatch('toggle');
 			}

@@ -42,7 +42,7 @@
 
 
 	const getMenusByUrl = () => {
-		const names = $location.split('/');
+		const names = decodeURIComponent($location).split('/');
 
 		let result = [];
 		let tempMenus = $menu;
@@ -127,7 +127,7 @@
 	}
 
 	const setMenus = (init = false) => {
-		if ($location.includes('/admin/')) {
+		if (decodeURIComponent($location).includes('/admin/')) {
 			active = '';
 			return;
 		}

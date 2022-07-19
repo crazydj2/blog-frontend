@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { getMenu, postMenu, patchMenu, deleteMenu } from '../api/menu.js';
+import { getMenu } from '../api/menu.js';
 
 const { subscribe, set } = writable([]);
 
