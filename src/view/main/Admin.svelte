@@ -64,13 +64,13 @@
 	const checkPassword = async () => {
 		// 비번 검증 후 오케이면 모드 변경
 
-		// const response = await postAdmin({password});
+		const response = await postAdmin({password});
 
-		const response = await getArticle();
+		// const response = await getArticle();
 
-		console.log(response);
-		mode = 'Admin';
-		return;
+		// console.log(response);
+		// mode = 'Admin';
+		// return;
 
 
 
