@@ -50,6 +50,8 @@
 	let searchArticleContianer;
 	let searchArticleTableResult;
 
+	console.log('AdminEditArticle', editor);
+
 
 	const select = e => {
 		selected = e.detail.selected;

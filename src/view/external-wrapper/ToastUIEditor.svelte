@@ -13,6 +13,8 @@
 	
 	let editor;
 
+	console.log('ToastUIEditor', editorInstance);
+
 	onMount(() => {
 		editorInstance = new Editor({
 			el: editor,
