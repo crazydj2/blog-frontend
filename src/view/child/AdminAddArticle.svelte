@@ -21,6 +21,8 @@
 </Content>
 
 <script>
+import { onMount } from 'svelte';
+
 	import Button, { Group, Label } from '@smui/button';
 	import { Content } from '@smui/card';
 	import Textfield from '@smui/textfield';
