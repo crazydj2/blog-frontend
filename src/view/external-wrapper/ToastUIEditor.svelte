@@ -14,6 +14,8 @@
 	let editor;
 
 	console.log('ToastUIEditor', editorInstance);
+	console.log('ToastUIEditor', Editor);
+	console.log('ToastUIEditor', editor);
 
 	onMount(() => {
 		editorInstance = new Editor({
