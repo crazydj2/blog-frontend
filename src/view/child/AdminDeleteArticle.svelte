@@ -1,6 +1,6 @@
 
-<SearchArticleContianer let:articles={articles}>
-	<SearchArticleTableResult articles={articles} on:select={select}></SearchArticleTableResult>
+<SearchArticleContianer let:articles={articles} bind:this={searchArticleContianer}>
+	<SearchArticleTableResult articles={articles} on:select={select} bind:this={searchArticleTableResult}></SearchArticleTableResult>
 </SearchArticleContianer>
 
 <Content>
@@ -13,21 +13,16 @@
 	import Button, { Group, Label } from '@smui/button';
 	import { Content } from '@smui/card';
 
-	import { getArticle, deleteArticle } from '../../api/article.js';
+	import { deleteArticle } from '../../api/article.js';
 
 	import SearchArticleContianer from './SearchArticleContianer.svelte';
 	import SearchArticleTableResult from './SearchArticleTableResult.svelte';
 
 
-	let name = '';
+	let searchArticleContianer;
+	let searchArticleTableResult;
 
 	let selected = [];
-
-	const search = async () => {
-		const response = await getArticle({keyword: name});
-
-		articles = response?.data || [];
-	};
 
 	const select = e => {
 		selected = e.detail.selected;
@@ -42,9 +37,10 @@
 		const response = await deleteArticle({ _id: selected.map(s => s._id) });
 
 		if (response?.success) {
-			alert(`"${name}" 메뉴 생성에 성공하였습니다.`);
-			
-			search();
+			alert(`글 삭제에 성공하였습니다.`);
+
+			searchArticleTableResult.reset();
+			searchArticleContianer.reset();
 		} else {
 			alert(`글 삭제에 실패하였습니다.`);
 		}

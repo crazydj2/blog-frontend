@@ -13,7 +13,7 @@
 
 <Content>
 	<Group variant="unelevated" style="display: flex; justify-content: stretch;">
-		<Button color="secondary" on:click={ addMenu } variant="raised" style="flex-grow: 1;"><Label>메뉴 수정</Label></Button>
+		<Button color="secondary" on:click={ editMenu } variant="raised" style="flex-grow: 1;"><Label>메뉴 수정</Label></Button>
 	</Group>
 </Content>
 
@@ -44,7 +44,7 @@
 		name = target?.name;
 	};
 
-	const addMenu = async () => {
+	const editMenu = async () => {
 		if (!target) {
 			alert('메뉴를 선택해주세용~');
 			return;

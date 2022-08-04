@@ -1,6 +1,11 @@
 
+<SearchArticleContianer let:articles={articles} bind:this={searchArticleContianer}>
+	<SearchArticleTableResult articles={articles} isRadio={true} on:select={select} bind:this={searchArticleTableResult}></SearchArticleTableResult>
+</SearchArticleContianer>
+
+{#if !!selected}
 <Content>
-	<h3 class="sub">기사 검색 & 선택</h3>
+	<Separator />
 </Content>
 
 <Content>
@@ -10,36 +15,54 @@
 	</Textfield>
 
 	<h3 style="margin-bo">본문 수정</h3>
-	<ToastUIEditor bind:this={editor}></ToastUIEditor>
+	<ToastUIEditor bind:this={editor} initContents={initContents}></ToastUIEditor>
 </Content>
 
 <Content>
 	<Group variant="unelevated" style="display: flex; justify-content: stretch;">
-		<Button color="secondary" on:click={ addArticle } variant="raised" style="flex-grow: 1;"><Label>글 수정</Label></Button>
+		<Button color="secondary" on:click={ editArticle } variant="raised" style="flex-grow: 1;"><Label>글 수정</Label></Button>
 	</Group>
 </Content>
+{/if}
+
 
 <script>
 	import Button, { Group, Label } from '@smui/button';
 	import { Content } from '@smui/card';
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
+	import { Separator } from '@smui/list';
+
+	import SearchArticleContianer from './SearchArticleContianer.svelte';
+	import SearchArticleTableResult from './SearchArticleTableResult.svelte';
 
 	import ToastUIEditor from '../external-wrapper/ToastUIEditor.svelte';
 
-	import { postArticle } from '../../api/article.js';
+	import { patchArticle } from '../../api/article.js';
+
+	let selected = null;
 
 	let title = '';
+	let initContents = '';
 
 	let editor;
-	let adminMenuSelectContainer;
 
-	const addArticle = async () => {
-		alert('로직 완성하삼~');
-		return;
+	let searchArticleContianer;
+	let searchArticleTableResult;
 
-		if (!parent) {
-			alert('메뉴를 선택해 주세요...');
+
+	const select = e => {
+		selected = e.detail.selected;
+
+		title = selected?.title;
+		initContents = selected?.contents;
+
+		editor?.setHTML(initContents);
+	};
+
+	const editArticle = async () => {
+		if (!selected) {
+			alert('수정할 글을 선택해 주세요...');
 			return;
 		}
 
@@ -55,21 +78,28 @@
 			return;
 		}
 
-		const response = await postArticle({
-			title,
-			contents,
-			parent
+		const response = await patchArticle({
+			query: {
+				_id: selected._id
+			},
+			data: {
+				title,
+				contents
+			}
 		});
 
 		if (response?.success) {
-			alert(`"${title}" 생성에 성공하였습니다.`);
-			
-			title = '';
+			alert(`"${title}" 수정에 성공하였습니다.`);
 
 			editor.reset();
-			adminMenuSelectContainer.reset();
+
+			title = '';
+			initContents = '';
+
+			searchArticleTableResult.reset();
+			searchArticleContianer.reset();
 		} else {
-			alert(`"${title}" article 생성에 실패하였습니다.`);
+			alert(`"${title}" article 수정에 실패하였습니다.`);
 		}
 	}
 </script>

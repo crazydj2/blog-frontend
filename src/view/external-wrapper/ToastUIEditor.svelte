@@ -7,6 +7,8 @@
 
 	import Editor from '@toast-ui/editor';
 
+	export let initContents = '';
+
 	let editorInstance;
 	
 	let editor;
@@ -20,11 +22,17 @@
 			theme: 'dark',
 			hideModeSwitch: true
 		});
+
+		editorInstance.setHTML(initContents);
 	});
 
 	export function getHTML() {
 		editorInstance.setMarkdown(editorInstance.getMarkdown().trim());
 		return editorInstance.getHTML();
+	}
+
+	export function setHTML(contents) {
+		editorInstance.setHTML(contents);
 	}
 
 	export function reset() {

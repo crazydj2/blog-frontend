@@ -4,7 +4,7 @@
 	<Button style="margin-left: 30px;" on:click={ search } variant="raised"><Label>검색</Label></Button>
 </Content>
 
-<slot articles={articles} select={select}></slot>
+<slot articles={articles}></slot>
 
 <script>
 	import Button, { Label } from '@smui/button';
@@ -12,7 +12,7 @@
 	import Textfield from '@smui/textfield';
 
 	import { getArticle } from '../../api/article.js';
-	
+
 
 	let name = '';
 
@@ -24,8 +24,8 @@
 		articles = response?.data || [];
 	};
 
-	const select = e => {
-		console.log(e);
-	};
+	export function reset() {
+		search();
+	}
 
 </script>

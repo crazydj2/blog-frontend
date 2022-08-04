@@ -66,14 +66,6 @@
 
 		const response = await postAdmin({password});
 
-		// const response = await getArticle();
-
-		// console.log(response);
-		// mode = 'Admin';
-		// return;
-
-
-
 		if (response?.success) {
 			mode = 'Admin';
 		} else {

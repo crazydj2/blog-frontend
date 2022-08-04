@@ -1,19 +1,30 @@
 {#if articles.length > 0}
 <Content>
-	<DataTable stickyHeader table$aria-label="User list" style="width: 100%;">
+	<DataTable table$aria-label="User list" style="width: 100%;">
 		<Head>
 			<Row>
+				{#if isRadio}
+				<Cell></Cell>
+				{:else}
 				<Cell checkbox><Checkbox /></Cell>
+				{/if}
+				<Cell>제목</Cell>
 				<Cell>부모 메뉴</Cell>
-				<Cell>Title</Cell>
+				<Cell>생성일시</Cell>
 			</Row>
 		</Head>
 		<Body>
-			{#each articles as article}
+			{#each articles as article, i}
 			<Row>
-				<Cell checkbox><Checkbox bind:group={selected} value={article} valueKey={article._id} /></Cell>
-				<Cell>{getAllParentsNames(article.parent)}</Cell>
+				{#if isRadio}
+				<Cell><Radio bind:group={selected} value={article} /></Cell>
+				{:else}
+				<Cell checkbox><Checkbox bind:group={selected} value={article} valueKey={article._id}
+					/></Cell>
+				{/if}
 				<Cell style="width: 100%;">{article.title}</Cell>
+				<Cell>{getAllParentsNames(article.parent)}</Cell>
+				<Cell>{getCreatedString(article.created)}</Cell>
 			</Row>
 			{/each}
 		</Body>
@@ -29,6 +40,7 @@
 	import { Content } from '@smui/card';
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
   	import Checkbox from '@smui/checkbox';
+	import Radio from '@smui/radio';
 	import { createEventDispatcher } from 'svelte';
 
 	import menu from '../../store/menu.js';
@@ -36,8 +48,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let articles = [];
+	export let isRadio = false;
 
-	let selected = [];
+	let selected = isRadio ? null : [];
 
 	const menuMap = new Map();
 
@@ -75,5 +88,15 @@
 		return str;
 	};
 
+	const getCreatedString = created => {
+		const date = new Date(created);
+
+		return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
+	};
+
 	$: dispatch('select', { selected: selected });
+
+	export function reset() {
+		selected = isRadio ? null : [];
+	}
 </script>
