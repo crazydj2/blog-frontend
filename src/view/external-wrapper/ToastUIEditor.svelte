@@ -13,7 +13,6 @@
 	
 	let editor;
 
-	console.log('ToastUIEditor', editorInstance);
 	console.log('ToastUIEditor', Editor);
 	
 
@@ -30,6 +29,8 @@
 		});
 
 		editorInstance.setHTML(initContents);
+
+		console.log('ToastUIEditor', editorInstance);
 	});
 
 	export function getHTML() {

@@ -38,6 +38,12 @@
 	let editor;
 	let adminMenuSelectContainer;
 
+	console.log('AdminEditArticle', editor);
+
+	onMount(() => {
+		console.log('AdminEditArticle onMount', editor);
+	});
+
 	const chageParent = e => {
 		parent = e.detail.select;
 	};
