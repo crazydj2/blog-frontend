@@ -21,8 +21,6 @@
 </Content>
 
 <script>
-import { onMount } from 'svelte';
-
 	import Button, { Group, Label } from '@smui/button';
 	import { Content } from '@smui/card';
 	import Textfield from '@smui/textfield';
@@ -39,12 +37,6 @@ import { onMount } from 'svelte';
 
 	let editor;
 	let adminMenuSelectContainer;
-
-	console.log('AdminEditArticle', editor);
-
-	onMount(() => {
-		console.log('AdminEditArticle onMount', editor);
-	});
 
 	const chageParent = e => {
 		parent = e.detail.select;

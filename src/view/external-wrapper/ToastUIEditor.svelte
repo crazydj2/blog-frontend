@@ -13,12 +13,7 @@
 	
 	let editor;
 
-	console.log('ToastUIEditor', Editor);
-	
-
 	onMount(() => {
-		console.log('ToastUIEditor onMount', editor);
-
 		editorInstance = new Editor({
 			el: editor,
 			height: '500px',
@@ -29,8 +24,6 @@
 		});
 
 		editorInstance.setHTML(initContents);
-
-		console.log('ToastUIEditor', editorInstance);
 	});
 
 	export function getHTML() {
