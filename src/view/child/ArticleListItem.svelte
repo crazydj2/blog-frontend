@@ -5,9 +5,9 @@
 
     <div class="article-list-item-cell-text-box">
         <div>
-            <h3 style="color: greenyellow;">{title}</h3>
+            <h3 style="color: greenyellow;">{article.title}</h3>
             <p>{contents}{@html '...'}</p>
-            <span>{created}</span>
+            <span>{getCreatedString(article.created)}</span>
         </div>
     </div>
 </div>
@@ -17,13 +17,14 @@
 
     let defaultImage = 'https://static-cdn.jtvnw.net/jtv_user_pictures/dde955e8-5fae-44dc-98db-79b3b14afea2-profile_image-70x70.png';
     let image = defaultImage;
-    let title = article?.title || 'Title...';
     let contents = 'Contents....';
-    let created = '2022년 7월 7일';
 
     // article.contents 내에서 첫번째 이미지 src 추출해서 image 로 설정
     const reg = new RegExp(/(<img[^>]+src\s*=\s*[\"']?([^>\"']+)[\"']?[^>]*>)/, 'i');
-    image = reg.exec(article.contents)[2] || defaultImage;
+    const regResult = reg.exec(article.contents);
+    if (regResult?.length > 1) {
+        image = regResult[2];
+    }
     
     // <img>, <h1~5>, <div>, <blockquote>, <table>, <code> 은 그냥 빈스트링으로 replace
     // <br>, <li> 는 ' ' 로 replace
@@ -32,6 +33,13 @@
         .replace(/(<img[^>]*>)|(<h1[^>]*>.*<\/h1>)|(<h2[^>]*>.*<\/h2>)|(<h3[^>]*>.*<\/h3>)|(<h4[^>]*>.*<\/h4>)|(<h5[^>]*>.*<\/h5>)|(<h6[^>]*>.*<\/h6>)|(<div[^>]*>(?!<div).+?<\/div>)|(<blockquote[^>]*>(?!<blockquote).+?<\/blockquote>)|(<table[^>]*>(?!<table).+?<\/table>)|(<code[^>]*>(?!<code).+?<\/code>)/gi, '')
         .replace(/(<br[^>]*>)|(<li[^>]*>)/gi, ' ')
         .replace(/<[^>]*>?/gi, '');
+
+
+    const getCreatedString = created => {
+		const date = new Date(created);
+
+		return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
+	};
 </script>
     
 <style>
