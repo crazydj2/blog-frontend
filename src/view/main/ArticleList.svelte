@@ -2,7 +2,7 @@
     <Cell spanDevices={{ desktop: 12, tablet: 8, phone: 4 }}>
         <div><h1>{allMenuName}</h1></div>
     </Cell>
-    {#each articles as article, i}
+    {#each articles as article}
     <Cell spanDevices={{ desktop: 3, tablet: 4, phone: 4 }}>
         <ArticleListItem article={article}></ArticleListItem>
     </Cell>

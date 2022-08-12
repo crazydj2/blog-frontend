@@ -7,7 +7,7 @@
         <div>
             <h3 style="color: greenyellow;" on:click={moveDetail}>{article.title}</h3>
             <p on:click={moveDetail}>{contents}{@html '...'}</p>
-            <span>{getCreatedString(article.created)}</span>
+            <span>{created}</span>
         </div>
     </div>
 </div>
@@ -20,31 +20,34 @@
     let defaultImage = 'https://static-cdn.jtvnw.net/jtv_user_pictures/dde955e8-5fae-44dc-98db-79b3b14afea2-profile_image-70x70.png';
     let image = defaultImage;
     let contents = 'Contents....';
-
-    // article.contents 내에서 첫번째 이미지 src 추출해서 image 로 설정
-    const reg = new RegExp(/(<img[^>]+src\s*=\s*[\"']?([^>\"']+)[\"']?[^>]*>)/, 'i');
-    const regResult = reg.exec(article.contents);
-    if (regResult?.length > 1) {
-        image = regResult[2];
-    }
-    
-    // <img>, <h1~5>, <div>, <blockquote>, <table>, <code> 은 그냥 빈스트링으로 replace
-    // <br>, <li> 는 ' ' 로 replace
-    // 나머지 태그들 - <~> 전부 빈스트링으로 replace
-    contents = article.contents
-        .replace(/(<img[^>]*>)|(<h1[^>]*>.*<\/h1>)|(<h2[^>]*>.*<\/h2>)|(<h3[^>]*>.*<\/h3>)|(<h4[^>]*>.*<\/h4>)|(<h5[^>]*>.*<\/h5>)|(<h6[^>]*>.*<\/h6>)|(<div[^>]*>(?!<div).+?<\/div>)|(<blockquote[^>]*>(?!<blockquote).+?<\/blockquote>)|(<table[^>]*>(?!<table).+?<\/table>)|(<code[^>]*>(?!<code).+?<\/code>)/gi, '')
-        .replace(/(<br[^>]*>)|(<li[^>]*>)/gi, ' ')
-        .replace(/<[^>]*>?/gi, '');
-
-
-    const getCreatedString = created => {
-		const date = new Date(created);
-
-		return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
-	};
+    let created = '';
 
     const moveDetail = () => {
         push(`${decodeURIComponent($location)}/${article._id}`);
+    };
+
+    $: {
+        image = defaultImage;
+        contents = 'Contents....';
+        created = '';
+
+        // article.contents 내에서 첫번째 이미지 src 추출해서 image 로 설정
+        const reg = new RegExp(/(<img[^>]+src\s*=\s*[\"']?([^>\"']+)[\"']?[^>]*>)/, 'i');
+        const regResult = reg.exec(article.contents);
+        if (regResult?.length > 1) {
+            image = regResult[2];
+        }
+        
+        // <img>, <h1~5>, <div>, <blockquote>, <table>, <code> 은 그냥 빈스트링으로 replace
+        // <br>, <li> 는 ' ' 로 replace
+        // 나머지 태그들 - <~> 전부 빈스트링으로 replace
+        contents = article.contents
+            .replace(/(<img[^>]*>)|(<h1[^>]*>.*<\/h1>)|(<h2[^>]*>.*<\/h2>)|(<h3[^>]*>.*<\/h3>)|(<h4[^>]*>.*<\/h4>)|(<h5[^>]*>.*<\/h5>)|(<h6[^>]*>.*<\/h6>)|(<div[^>]*>(?!<div).+?<\/div>)|(<blockquote[^>]*>(?!<blockquote).+?<\/blockquote>)|(<table[^>]*>(?!<table).+?<\/table>)|(<code[^>]*>(?!<code).+?<\/code>)/gi, '')
+            .replace(/(<br[^>]*>)|(<li[^>]*>)/gi, ' ')
+            .replace(/<[^>]*>?/gi, '');
+
+        const date = new Date(article.created);
+		created = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
     };
 </script>
     
