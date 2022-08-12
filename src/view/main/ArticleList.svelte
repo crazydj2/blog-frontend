@@ -1,6 +1,6 @@
 <LayoutGrid>
     <Cell spanDevices={{ desktop: 12, tablet: 8, phone: 4 }}>
-        <div><h1>{getAllMenuName(articles)}</h1></div>
+        <div><h1>{allMenuName}</h1></div>
     </Cell>
     {#each articles as article, i}
     <Cell spanDevices={{ desktop: 3, tablet: 4, phone: 4 }}>
@@ -24,6 +24,8 @@
 
     let articles = [];
 
+    let allMenuName = '';
+
 	const getMenusByUrl = () => {
 		const names = decodeURIComponent($location).split('/');
 
@@ -46,11 +48,20 @@
 	};
 
     const init = async () => {
-        let parentMenu = getMenusByUrl().pop();
-
-        if (!parentMenu) {
+        const parents = getMenusByUrl();
+        if (parents.length === 0) {
             return;
         }
+
+        allMenuName = parents.reduce((acc, cur) => {
+            if (acc !== '') {
+                acc += ' > '
+            }
+
+            return acc + cur.name;
+        }, '');
+
+        let parentMenu = parents.pop();
 
         const response = await getArticle({ parent: parentMenu?._id });
 
@@ -68,16 +79,4 @@
     location.subscribe(() => {
         init();
 	});
-
-    const getAllMenuName = () => {
-        // articles;
-        
-        return getMenusByUrl().reduce((acc, cur) => {
-            if (acc !== '') {
-                acc += ' > '
-            }
-
-            return acc + cur.name;
-        }, '');
-    };
 </script>
