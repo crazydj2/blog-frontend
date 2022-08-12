@@ -2,8 +2,8 @@
 	<Aside></Aside>
 
 	<AppContent class="app-content">
-		<main class="main-content">
-			<Router {routes} />
+		<main class="main-content" bind:this={main}>
+			<Router {routes} on:routeEvent={onEvent} />
 		</main>
 	</AppContent>
 </div>
@@ -15,6 +15,18 @@
 	import { AppContent } from '@smui/drawer';
 
 	import Aside from './main/Aside.svelte';
+
+	let main;
+
+	const onEvent = e => {
+		const { name } = e.detail;
+
+		switch (name) {
+			case 'moveTopMain':
+				main.scrollTop = 0;
+				break;
+		}
+	};
 </script>
 
 <style>

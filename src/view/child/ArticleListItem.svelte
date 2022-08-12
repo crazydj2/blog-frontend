@@ -1,18 +1,20 @@
 <div class="article-list-item-cell-container">
     <div class="article-list-item-cell-image-box">
-        <img alt="..." src={image} on:error={() => {image = defaultImage}}/>
+        <img alt="..." src={image} on:error={() => {image = defaultImage}} on:click={moveDetail} />
     </div>
 
     <div class="article-list-item-cell-text-box">
         <div>
-            <h3 style="color: greenyellow;">{article.title}</h3>
-            <p>{contents}{@html '...'}</p>
+            <h3 style="color: greenyellow;" on:click={moveDetail}>{article.title}</h3>
+            <p on:click={moveDetail}>{contents}{@html '...'}</p>
             <span>{getCreatedString(article.created)}</span>
         </div>
     </div>
 </div>
     
 <script>
+    import { location, push } from 'svelte-spa-router';
+
     export let article;
 
     let defaultImage = 'https://static-cdn.jtvnw.net/jtv_user_pictures/dde955e8-5fae-44dc-98db-79b3b14afea2-profile_image-70x70.png';
@@ -40,6 +42,10 @@
 
 		return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
 	};
+
+    const moveDetail = () => {
+        push(`${decodeURIComponent($location)}/${article._id}`);
+    };
 </script>
     
 <style>
@@ -67,6 +73,7 @@
         height: 100%;
         display: block;
         object-fit: cover;
+        cursor: pointer;
     }
 
     .article-list-item-cell-text-box {
@@ -83,6 +90,7 @@
     .article-list-item-cell-text-box h3 {
         color: greenyellow;
         margin-top: 0;
+        cursor: pointer;
     }
 
     .article-list-item-cell-text-box p {
@@ -97,6 +105,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        cursor: pointer;
     }
 
     .article-list-item-cell-text-box span {
