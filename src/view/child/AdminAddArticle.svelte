@@ -53,7 +53,7 @@
 			return;
 		}
 
-		const contents = editor.getHTML();
+		const contents = editor.getMarkdown();
 
 		if (!contents) {
 			alert('본문을 입력해주세요...');

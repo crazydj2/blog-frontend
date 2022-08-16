@@ -23,7 +23,7 @@
 			hideModeSwitch: true
 		});
 
-		editorInstance.setHTML(initContents);
+		editorInstance.setMarkdown(initContents);
 	});
 
 	export function getHTML() {
@@ -33,6 +33,15 @@
 
 	export function setHTML(contents) {
 		editorInstance.setHTML(contents);
+	}
+
+	export function getMarkdown() {
+		editorInstance.setMarkdown(editorInstance.getMarkdown().trim());
+		return editorInstance.getMarkdown();
+	}
+
+	export function setMarkdown(contents) {
+		editorInstance.setMarkdown(contents);
 	}
 
 	export function reset() {
